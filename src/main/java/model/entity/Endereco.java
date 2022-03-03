@@ -4,7 +4,7 @@ public class Endereco {
 
 	private int id;
 	private String rua;
-	private int numero;
+	private String numero;
 	private String cidade;
 	private String uf;
 	private String cep;
@@ -13,7 +13,7 @@ public class Endereco {
 		
 	}
 	
-	public Endereco(int id, String rua, int numero, String cidade, String uf, String cep) {
+	public Endereco(int id, String rua, String numero, String cidade, String uf, String cep) {
 		super();
 		this.id = id;
 		this.rua = rua;
@@ -39,11 +39,11 @@ public class Endereco {
 		this.rua = rua;
 	}
 
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
