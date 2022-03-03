@@ -8,9 +8,8 @@ public class Telefone {
 	private int tipo; // alterar para enum
 	private boolean ativo;
 	
-	public Telefone(int id, String ddd, String numero, int tipo) {
+	public Telefone(String ddd, String numero, int tipo) {
 		super();
-		this.id = id;
 		this.ddd = ddd;
 		this.numero = numero;
 		this.tipo = tipo;
@@ -59,7 +58,6 @@ public class Telefone {
 	@Override
 	public String toString() {
 		return String.format("Telefone%n"
-				+ "Id: " + id + "%n"
 				+ "DDD: " + ddd + "%n"
 				+ "Número: " + numero + "%n"
 				+ "Tipo: " + tipo + "%n"
