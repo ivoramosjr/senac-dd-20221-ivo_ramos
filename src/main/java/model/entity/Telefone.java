@@ -8,11 +8,12 @@ public class Telefone {
 	private int tipo; // alterar para enum
 	private boolean ativo;
 	
-	public Telefone(String ddd, String numero, int tipo) {
+	public Telefone(String ddd, String numero, int tipo, boolean ativo) {
 		super();
 		this.ddd = ddd;
 		this.numero = numero;
 		this.tipo = tipo;
+		this.ativo = ativo;
 	}
 
 	public int getId() {
@@ -61,7 +62,7 @@ public class Telefone {
 				+ "DDD: " + ddd + "%n"
 				+ "Número: " + numero + "%n"
 				+ "Tipo: " + tipo + "%n"
-				+ "Ativo: " + ativo);
+				+ "Ativo: " + ativo + "%n");
 	}
 	
 }

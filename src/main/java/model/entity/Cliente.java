@@ -49,6 +49,10 @@ public class Cliente {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+	
+	public void mostrarTelefones() {
+		this.telefones.forEach(System.out::println);
+	}
 
 	@Override
 	public String toString() {
