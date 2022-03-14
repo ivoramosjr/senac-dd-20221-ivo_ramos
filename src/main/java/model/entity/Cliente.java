@@ -7,15 +7,29 @@ public class Cliente {
 	private int id;
 	private String nome;
 	private String cpf;
-	private List<Telefone> telefones;
 	private Endereco endereco;
+	private List<LinhaTelefonica> linhas;
 	
-	public Cliente(String nome, String cpf, List<Telefone> telefones, Endereco endereco) {
+	public Cliente() {
+		super();
+	}
+
+	public Cliente(String nome, String cpf, Endereco endereco, List<LinhaTelefonica> linhas) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
-		this.telefones = telefones;
 		this.endereco = endereco;
+		this.linhas = linhas;
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -34,14 +48,6 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 
-	public List<Telefone> getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
-	}
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -49,17 +55,12 @@ public class Cliente {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
-	public void mostrarTelefones() {
-		this.telefones.forEach(System.out::println);
+
+	public List<LinhaTelefonica> getLinhas() {
+		return linhas;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("Cliente " + nome + "%n"
-				+ "CPF: " + cpf + "%n"
-				+ "Endereco: " + endereco);
+	public void setLinhas(List<LinhaTelefonica> linhas) {
+		this.linhas = linhas;
 	}
-	
-	
 }

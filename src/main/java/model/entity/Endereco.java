@@ -1,7 +1,7 @@
 package model.entity;
 
 public class Endereco {
-
+	
 	private int id;
 	private String rua;
 	private String numero;
@@ -10,32 +10,46 @@ public class Endereco {
 	private String cep;
 	
 	public Endereco() {
-		
 	}
 	
 	public Endereco(String rua, String numero, String cidade, String uf, String cep) {
 		super();
 		this.rua = rua;
-		this.numero = numero;
 		this.cidade = cidade;
 		this.uf = uf;
 		this.cep = cep;
+		this.numero = numero;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public String getRua() {
 		return rua;
 	}
-
 	public void setRua(String rua) {
 		this.rua = rua;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	public String getUf() {
+		return uf;
+	}
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 	public String getNumero() {
@@ -44,38 +58,5 @@ public class Endereco {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-	
-	@Override
-	public String toString() {
-		return String.format("Rua: "+this.rua+"%n"
-				+ "Número: "+this.numero+"%n"
-				+ "Cidade: "+this.cidade+"%n"
-				+ "UF: "+this.uf+"%n"
-				+ "CEP: "+this.cep);
 	}
 }
