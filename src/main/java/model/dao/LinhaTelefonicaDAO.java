@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.entity.LinhaTelefonica;
 
@@ -91,5 +92,30 @@ public class LinhaTelefonicaDAO {
 		//SELECT * FROM LINHA_TELEFONICA
 		
 		return linhaTelefonicas;
+	}
+
+	public List<LinhaTelefonica> consultarLinhasTelefonicasByIdCliente(int id) {
+		//TODO implementar
+		Connection conn = Banco.getConnection();
+		List<LinhaTelefonica> linhasConsultadas = new ArrayList<LinhaTelefonica>();
+		
+		String sql = "SELECT id, id_telefone, id_cliente, dt_ativacao, dt_desativacao "
+				+ "FROM linha_telefonica WHERE id_cliente = ? AND dt_desativacao IS NULL";
+		
+		try(PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql)){
+			
+			stmt.setInt(1, id);
+			
+			stmt.execute();
+			
+			ResultSet resultSet = stmt.getResultSet();
+			
+			//TODO continuar implementação
+			
+		}catch(SQLException e) {
+			System.out.println("Erro ao consultar as linhas telefónicas do cliente. Causa: "+e.getMessage());
+		}
+		
+		return linhasConsultadas;
 	}
 }

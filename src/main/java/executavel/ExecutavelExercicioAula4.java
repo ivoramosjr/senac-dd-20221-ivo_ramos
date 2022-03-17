@@ -22,11 +22,11 @@ public class ExecutavelExercicioAula4 {
 		telefones.add(t1);
 		telefones.add(t2);
 		
-		Cliente jorge = new Cliente("Jorge","12345678901", telefones, endereco1);
+		//Cliente jorge = new Cliente("Jorge","12345678901", telefones, endereco1);
 		
-		clientes.add(jorge);
+		//clientes.add(jorge);
 		
-		jorge.mostrarTelefones();
+		//jorge.mostrarTelefones();
 	}
 
 }

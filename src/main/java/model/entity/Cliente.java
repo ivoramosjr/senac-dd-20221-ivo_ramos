@@ -22,8 +22,6 @@ public class Cliente {
 		this.linhas = linhas;
 	}
 
-
-
 	public int getId() {
 		return id;
 	}

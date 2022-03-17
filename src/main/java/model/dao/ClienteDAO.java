@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.entity.Cliente;
+import model.entity.Endereco;
+import model.entity.LinhaTelefonica;
 
 public class ClienteDAO {
  
@@ -78,8 +81,35 @@ public class ClienteDAO {
 	
 	public Cliente consultar(int id) {
 		Cliente clienteConsultado = null;
+		
+		Connection conn = Banco.getConnection();
 		//TODO implementar		
-		//SELECT * FROM CLIENTE WHERE ID = ?
+		String sql = "SELECT * FROM CLIENTE WHERE ID = ?";
+		
+		try(PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql)){
+			stmt.setInt(1, id);
+			
+			stmt.executeUpdate();
+			
+			try(ResultSet result = stmt.getResultSet()) {
+				if(result.next()) {
+					clienteConsultado.setId(result.getInt("id"));
+					clienteConsultado.setNome(result.getString("nome"));
+					clienteConsultado.setCpf(result.getString("cpf"));
+					
+					EnderecoDAO enderecoDAO = new EnderecoDAO();
+					Endereco endereco = enderecoDAO.consultar(result.getInt("id_endereco"));
+					clienteConsultado.setEndereco(endereco);
+					
+					LinhaTelefonicaDAO linhaTelefonicaDao = new LinhaTelefonicaDAO();
+					List<LinhaTelefonica> linhasTelefonicas = linhaTelefonicaDao.consultarLinhasTelefonicasByIdCliente(clienteConsultado.getId());
+				}
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Problema ao consultar cliente. Causa: "+e.getMessage());
+			e.printStackTrace();
+		}
 		
 		return clienteConsultado;
 	}
