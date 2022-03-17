@@ -84,7 +84,28 @@ public class EnderecoDAO {
 	public Endereco consultar(int id) {
 		Endereco enderecoConsultado = null;
 		//TODO implementar		
-		//SELECT * FROM ENDERECO WHERE ID = ?
+		String sql = "SELECT id, rua, uf, cidade, numero, cep FROM ENDERECO WHERE ID = ?";
+		Connection conn = Banco.getConnection();
+		
+		try(PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql)){
+			stmt.setInt(1, id);
+			
+			stmt.executeUpdate();
+			
+			try(ResultSet result = stmt.getResultSet()) {
+				if(result.next()) {
+					enderecoConsultado.setId(result.getInt("id"));
+					enderecoConsultado.setRua(result.getString("rua"));
+					enderecoConsultado.setUf(result.getString("uf"));
+					enderecoConsultado.setCidade(result.getString("cidade"));
+					enderecoConsultado.setNumero(result.getString("numero"));
+					enderecoConsultado.setCep(result.getString("cep"));
+				}
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar endereço. Causa: "+e.getMessage());
+		}
 		
 		return enderecoConsultado;
 	}
