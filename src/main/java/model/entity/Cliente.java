@@ -61,4 +61,9 @@ public class Cliente {
 	public void setLinhas(List<LinhaTelefonica> linhas) {
 		this.linhas = linhas;
 	}
+
+	@Override
+	public String toString() {
+		return "Nome: "+nome+" CPF: "+cpf+ " Endereco: "+endereco;
+	}
 }

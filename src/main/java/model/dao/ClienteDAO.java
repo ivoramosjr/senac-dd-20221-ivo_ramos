@@ -116,9 +116,31 @@ public class ClienteDAO {
 	
 	public ArrayList<Cliente> consultarTodos(){
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-		//TODO implementar
-		//SELECT * FROM CLIENTE
-		
+		Connection conn = Banco.getConnection();
+		String sql = "SELECT * FROM Cliente";
+		try(PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql)){
+			stmt.executeQuery();
+			try(ResultSet result = stmt.getResultSet()) {
+				while(result.next()) {
+					Cliente cliente = new Cliente();
+					cliente.setId(result.getInt("id"));
+					cliente.setNome(result.getString("nome"));
+					cliente.setCpf(result.getString("cpf"));
+					
+					EnderecoDAO enderecoDAO = new EnderecoDAO();
+					Endereco endereco = enderecoDAO.consultar(result.getInt("id_endereco"));
+					cliente.setEndereco(endereco);
+					
+					LinhaTelefonicaDAO linhaTelefonicaDao = new LinhaTelefonicaDAO();
+					List<LinhaTelefonica> linhasTelefonicas = linhaTelefonicaDao.consultarLinhasTelefonicasByIdCliente(cliente.getId());
+					cliente.setLinhas(linhasTelefonicas);
+					clientes.add(cliente);
+				}
+			}
+		}catch (SQLException e) {
+			System.out.println("Problema ao consultar todos os clientes. Causa: "+e.getMessage());
+			e.printStackTrace();
+		}
 		return clientes;
 	}
 }

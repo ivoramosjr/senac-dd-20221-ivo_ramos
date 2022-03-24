@@ -59,4 +59,8 @@ public class Endereco {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+	
+	public String toString() {
+		return "Endereco - Rua: "+rua+" nº: "+numero+" "+cidade+"-"+uf+" CEP "+cep;
+	}
 }

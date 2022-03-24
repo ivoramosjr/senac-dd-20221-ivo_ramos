@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.entity.LinhaTelefonica;
+import model.entity.Telefone;
 
 public class LinhaTelefonicaDAO {
 	public LinhaTelefonica inserir(LinhaTelefonica novaLinha) {
@@ -95,7 +97,6 @@ public class LinhaTelefonicaDAO {
 	}
 
 	public List<LinhaTelefonica> consultarLinhasTelefonicasByIdCliente(int id) {
-		//TODO implementar
 		Connection conn = Banco.getConnection();
 		List<LinhaTelefonica> linhasConsultadas = new ArrayList<LinhaTelefonica>();
 		
@@ -108,9 +109,19 @@ public class LinhaTelefonicaDAO {
 			
 			stmt.execute();
 			
-			ResultSet resultSet = stmt.getResultSet();
-			
-			//TODO continuar implementação
+			try(ResultSet resultSet = stmt.getResultSet()){
+				while(resultSet.next()) {
+					LinhaTelefonica linhaTelefonica = new LinhaTelefonica();
+					linhaTelefonica.setId(resultSet.getInt("id"));
+					TelefoneDAO telefoneDAO = new TelefoneDAO();
+					Telefone telefone = telefoneDAO.consultar(resultSet.getInt("id_telefone"));
+					linhaTelefonica.setTelefone(telefone);
+					linhaTelefonica.setIdCliente(resultSet.getInt("id_cliente"));
+					linhaTelefonica.setDataAtivacao(resultSet.getTimestamp("dt_ativacao").toLocalDateTime());
+					linhaTelefonica.setDataAtivacao(resultSet.getTimestamp("dt_desativacao").toLocalDateTime());
+					linhasConsultadas.add(linhaTelefonica);
+				}
+			}
 			
 		}catch(SQLException e) {
 			System.out.println("Erro ao consultar as linhas telefónicas do cliente. Causa: "+e.getMessage());
