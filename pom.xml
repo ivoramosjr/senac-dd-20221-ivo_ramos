@@ -3,4 +3,16 @@
   <groupId>senac-dd-20221-ivo_ramos</groupId>
   <artifactId>senac-dd-20221-ivo_ramos</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
