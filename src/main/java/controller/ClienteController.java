@@ -51,5 +51,12 @@ public class ClienteController {
 		
 		return mensagem;
 	}
+
+	public Cliente getClienteByIdTelefone(int id) {
+		if(id == 0) {
+			//Solta exception
+		}
+		return bo.getClienteByIdTelefone(id);		
+	}
 	
 }

@@ -160,4 +160,29 @@ public class ClienteDAO implements BaseDAO<Cliente>{
 		
 		return cpfJaCadastrado;
 	}
+
+	public Cliente getClienteByIdTelefone(int id) {
+		Cliente clienteConsultado = null;
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM CLIENTE AS CLI"
+					+" INNER JOIN LINHA_TELEFONICA AS LT ON "
+					+" CLI.id = LT.id_cliente "
+					+" INNER JOIN TELEFONE AS TE ON "
+					+" LT.id_telefone = TE.id "
+					+" WHERE TE.id = ? AND dt_desativacao IS NULL";
+		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
+		
+		try {
+			stmt.setInt(1, id);
+			ResultSet resultado = stmt.executeQuery();
+			
+			if(resultado.next()) {
+				clienteConsultado = construirDoResultSet(resultado);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar cliente. Causa:" + e.getMessage());
+		}
+		
+		return clienteConsultado;
+	}
 }

@@ -77,7 +77,7 @@ public class GerenciamentoLinha extends JFrame {
 		JLabel lblCliente = new JLabel("Clientes");
 		lblCliente.setBounds(229, 97, 86, 24);
 		lblCliente.setFont(new Font("Arial", Font.PLAIN, 20));
-		comboBoxClientes = new JComboBox();
+		comboBoxClientes = new JComboBox(clienteController.consultarTodos().toArray());
 		comboBoxClientes.setSelectedIndex(-1);
 		comboBoxClientes.setEnabled(false);
 		comboBoxClientes.setBounds(36, 132, 436, 22);
@@ -94,14 +94,29 @@ public class GerenciamentoLinha extends JFrame {
 		contentPane.add(btnAssociarUsuario);
 		contentPane.add(comboBoxTelefones);
 		contentPane.add(lblLinhasTelefonicas);
-		
 		comboBoxTelefones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Telefone telefone = (Telefone)comboBoxTelefones.getSelectedItem();
 				if(telefone.isAtivo()) {
 					btnLiberarLinha.setEnabled(true);
 					comboBoxClientes.setEnabled(false);
-					//Mostrar o cliente que está associado o telefone
+					Cliente cliente = clienteController.getClienteByIdTelefone(telefone.getId());
+					if(cliente == null) {
+						comboBoxClientes.setSelectedIndex(-1);
+					}else {
+						int nItens = comboBoxClientes.getItemCount();
+						if(nItens > 0) {
+							for(int i = 0; i < nItens; i++) {
+								Cliente clienteLista = (Cliente) comboBoxClientes.getItemAt(i);
+								if(clienteLista.getId() == cliente.getId()) {
+									comboBoxClientes.setSelectedIndex(i);
+								}
+							}
+						}else {
+							comboBoxClientes.setSelectedIndex(-1);
+						}
+						
+					}
 				}else {
 					btnLiberarLinha.setEnabled(false);
 					comboBoxClientes.removeAllItems();

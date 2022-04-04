@@ -53,6 +53,10 @@ public class ClienteBO {
 		
 		return excluiu;
 	}
+
+	public Cliente getClienteByIdTelefone(int id) {
+		return dao.getClienteByIdTelefone(id);
+	}
 	
 	
 	
