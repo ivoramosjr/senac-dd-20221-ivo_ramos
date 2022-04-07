@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.sql.BatchUpdateException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -129,5 +130,48 @@ public class TelefoneDAO implements BaseDAO<Telefone> {
 		}
 		
 		return telefones;
+	}
+
+	public void desativarTelefone(Integer id) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection conexao = Banco.getConnection();
+		
+		String sql = " UPDATE TELEFONE T SET ATIVO = 0 WHERE T.ID = ? ";
+		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
+		
+		try {
+			stmt.setInt(1, id);
+			
+			int resultado = stmt.executeUpdate();
+			
+			if(resultado == 0) {
+				throw new SQLException("Telefone já se encontra desativado!");
+			}
+			
+		} catch (SQLException e) {
+			throw new SQLException("Erro ao atualizar telefone. Causa: " + e.getMessage());
+		}
+		
+	}
+
+	public void ativarTelefone(Integer id) throws SQLException {
+Connection conexao = Banco.getConnection();
+		
+		String sql = " UPDATE TELEFONE T SET ATIVO = 1 WHERE T.ID = ? ";
+		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
+		
+		try {
+			stmt.setInt(1, id);
+			
+			int resultado = stmt.executeUpdate();
+			
+			if(resultado == 0) {
+				throw new SQLException("Telefone já se encontra ativado!");
+			}
+			
+		} catch (SQLException e) {
+			throw new SQLException("Erro ao atualizar telefone. Causa: " + e.getMessage());
+		}
+		
 	}
 }

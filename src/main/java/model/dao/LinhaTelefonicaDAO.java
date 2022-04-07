@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,10 +12,11 @@ import model.entity.LinhaTelefonica;
 import model.entity.Telefone;
 
 public class LinhaTelefonicaDAO {
+	
 	public LinhaTelefonica inserir(LinhaTelefonica novaLinha) {
 		Connection conexao = Banco.getConnection();
 		String sql = " INSERT INTO LINHA_TELEFONICA(ID_CLIENTE, ID_TELEFONE, DT_ATIVACAO, DT_DESATIVACAO)" 
-				+ "VALUES (?, ?, ?, ?);";
+				+ "VALUES (?, ?, ?);";
 
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
 
@@ -35,6 +37,27 @@ public class LinhaTelefonicaDAO {
 		}
 
 		return novaLinha;
+	}
+	
+	public void criarNovaLinha(Integer idTelefone) {
+		Connection conexao = Banco.getConnection();
+		String sql = " INSERT INTO LINHA_TELEFONICA(ID_TELEFONE)" 
+				+ "VALUES (?);";
+
+		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
+
+		try {
+			stmt.setInt(1, idTelefone);
+
+			stmt.execute();
+
+			ResultSet chavesGeradas = stmt.getGeneratedKeys();
+			if(!chavesGeradas.next()) {
+				throw new SQLException("Linha não foi criada!");
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao inserir linha telefônica. Causa:" + e.getMessage());
+		}
 	}
 
 	public boolean atualizar(LinhaTelefonica linhaTelefonica) {
@@ -163,5 +186,52 @@ public class LinhaTelefonicaDAO {
 		}
 
 		return linhasDoCliente;
+	}
+
+	public void desativarLinhaTelefonica(Integer idTelefone) {
+		Connection conexao = Banco.getConnection();
+		String sql = " UPDATE LINHA_TELEFONICA "
+				+" SET DT_DESATIVACAO = NOW() "
+				+" WHERE ID_TELEFONE=? AND DT_DESATIVACAO IS NULL AND ID_CLIENTE IS NOT NULL ";
+
+		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
+
+		try {
+			stmt.setInt(1, idTelefone);
+
+			int linhasAfetadas = stmt.executeUpdate();
+			if(linhasAfetadas == 0) {
+				throw new SQLException("Linha telefonica já se encontra desativada!");
+			}
+			this.criarNovaLinha(idTelefone);
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar linha telefônica. Causa:" + e.getMessage());
+		}
+		
+	}
+
+	public void ativarLinhaTelefonica(Integer idTelefone, Integer idCliente) {
+		Connection conexao = Banco.getConnection();
+		String sql = " UPDATE LINHA_TELEFONICA "
+				+" SET DT_ATIVACAO = NOW(), "
+				+ " ID_CLIENTE = ?"
+				+" WHERE ID_TELEFONE= ? AND DT_ATIVACAO IS NULL AND DT_DESATIVACAO IS NULL";
+
+		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
+
+		try {
+			stmt.setInt(1, idCliente);
+			stmt.setInt(2, idTelefone);
+
+			int linhasAfetadas = stmt.executeUpdate();
+			if(linhasAfetadas == 0) {
+				throw new SQLException("Linha telefonica já se encontra ativada!");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar linha telefônica. Causa:" + e.getMessage());
+		}
+		
 	}
 }

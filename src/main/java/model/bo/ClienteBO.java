@@ -57,6 +57,10 @@ public class ClienteBO {
 	public Cliente getClienteByIdTelefone(int id) {
 		return dao.getClienteByIdTelefone(id);
 	}
+
+	public Integer getIdClienteByIdTelefone(int id) {
+		return dao.getIdClienteByIdTelefone(id);
+	}
 	
 	
 	

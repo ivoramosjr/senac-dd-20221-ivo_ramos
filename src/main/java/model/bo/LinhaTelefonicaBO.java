@@ -13,4 +13,20 @@ public class LinhaTelefonicaBO {
 		return dao.consultarTodos();
 	}
 
+	public void desativarLinhaTelefonica(Integer id) {
+		if(id == null)
+			throw new RuntimeException("Id da linha telefonica está nulo!");
+		
+		dao.desativarLinhaTelefonica(id);
+	}
+
+	public void ativarLinhaTelefonica(Integer idTelefone, Integer idCliente) {
+		if(idCliente == null)
+			throw new RuntimeException("Id do cliente da linha telefonica está nulo!");
+		if(idTelefone == null)
+			throw new RuntimeException("Id do telefone da linha telefonica está nulo!");
+		
+		dao.ativarLinhaTelefonica(idTelefone, idCliente);
+	}
+
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.bo.TelefoneBO;
@@ -11,6 +12,14 @@ public class TelefoneController {
 	
 	public ArrayList<Telefone> listAll(){
 		return telefoneBO.listAll();
+	}
+
+	public void desativarTelefone(Integer id) throws SQLException {
+		telefoneBO.desativarTelefone(id);
+	}
+
+	public void ativarTelefone(Integer id) throws SQLException {
+		telefoneBO.ativarTelefone(id);
 	}
 	
 }

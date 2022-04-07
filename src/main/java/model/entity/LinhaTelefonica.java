@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public class LinhaTelefonica {
 	
-	private int id;
+	private Integer id;
 	private Telefone telefone;
-	private int idCliente; //para evitar looping
+	private Integer idCliente; //para evitar looping
 	private LocalDateTime dataAtivacao; 
 	private LocalDateTime dataDesativacao;
 	
@@ -65,11 +65,11 @@ public class LinhaTelefonica {
 		this.dataDesativacao = dataDesativacao;
 	}
 
-	public int getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 

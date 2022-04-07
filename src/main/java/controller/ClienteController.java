@@ -58,5 +58,9 @@ public class ClienteController {
 		}
 		return bo.getClienteByIdTelefone(id);		
 	}
+
+	public Integer getIdClienteByIdTelefone(int id) {
+		return bo.getIdClienteByIdTelefone(id);
+	}
 	
 }

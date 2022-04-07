@@ -12,5 +12,13 @@ public class LinhaTelefonicaController {
 	public ArrayList<LinhaTelefonica> listAll(){
 		return linhaTelefonicaBO.consultarTodos();
 	}
+
+	public void desativarLinhaTelefonica(Integer id) {
+		linhaTelefonicaBO.desativarLinhaTelefonica(id);		
+	}
+
+	public void ativarLinhaTelefonica(Integer idTelefone, Integer idCliente) {
+		linhaTelefonicaBO.ativarLinhaTelefonica(idTelefone, idCliente);
+	}
 	
 }
