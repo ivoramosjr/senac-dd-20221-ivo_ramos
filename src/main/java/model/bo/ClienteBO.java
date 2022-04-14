@@ -1,6 +1,7 @@
 package model.bo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.dao.ClienteDAO;
 import model.entity.Cliente;
@@ -60,6 +61,20 @@ public class ClienteBO {
 
 	public Integer getIdClienteByIdTelefone(int id) {
 		return dao.getIdClienteByIdTelefone(id);
+	}
+
+	public Cliente getClienteByCpf(String cpf) {
+		List<String> erros = new ArrayList<>();
+		if (cpf == null)
+			erros.add("CPF não pode estar nulo!");
+		
+		if (cpf.isEmpty())
+			erros.add("CPF não pode ser vazio!");
+		
+		if (cpf.length() != 11)
+			erros.add("CPF dever conter 11 dígitos!");
+		
+		return dao.getClienteByCpf(cpf);
 	}
 	
 	

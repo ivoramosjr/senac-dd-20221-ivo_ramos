@@ -62,5 +62,9 @@ public class ClienteController {
 	public Integer getIdClienteByIdTelefone(int id) {
 		return bo.getIdClienteByIdTelefone(id);
 	}
+
+	public Cliente consultarPorCpf(String cpf) {
+		return bo.getClienteByCpf(cpf);
+	}
 	
 }

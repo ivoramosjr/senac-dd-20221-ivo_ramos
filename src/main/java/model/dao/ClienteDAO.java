@@ -210,4 +210,28 @@ public class ClienteDAO implements BaseDAO<Cliente>{
 		
 		return idCliente;
 	}
+
+	public Cliente getClienteByCpf(String cpf) {
+		Cliente clienteConsultado = null;
+		
+		Connection conexao = Banco.getConnection();
+		
+		String sql = "SELECT * FROM CLIENTE "
+				+ " WHERE cpf = ?";
+		//11133322255
+		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
+		
+		try {
+			stmt.setString(1, cpf);
+			ResultSet resultado = stmt.executeQuery();
+			
+			if(resultado.next()) {
+				clienteConsultado = construirDoResultSet(resultado);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar cliente por CPF. Causa:" + e.getMessage());
+		}
+		
+		return clienteConsultado;
+	}
 }
