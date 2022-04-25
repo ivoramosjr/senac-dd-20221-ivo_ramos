@@ -171,6 +171,7 @@ public class TelaConsultaCliente {
 			public void mouseClicked(MouseEvent event) {
 				Cliente cliente = clientes.get(tableClientes.getSelectedRow()-1);
 				TelaCadastroCliente cadastroCliente = new TelaCadastroCliente();
+				cadastroCliente.passarCliente(cliente);
 				cadastroCliente.setEnabled(true);
 				cadastroCliente.setVisible(true);
 			}

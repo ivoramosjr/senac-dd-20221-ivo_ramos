@@ -37,6 +37,7 @@ public class TelaCadastroCliente extends JFrame {
 
 	private ClienteController clienteController = new ClienteController();
 	private EnderecoController enderecoController = new EnderecoController();
+	private Cliente novoCliente;
 	private JLabel lblNome;
 	private JLabel lblCpf;
 	private JLabel lblEndereco;
@@ -189,8 +190,25 @@ public class TelaCadastroCliente extends JFrame {
 		this.cbEndereco.setSelectedItem(null);
 	}
 	
+	public void passarCliente(Cliente cliente) {
+		novoCliente = cliente;
+		preencherCliente();
+	}
+	
+	protected void preencherCliente() {
+		if(novoCliente != null) {
+			
+			this.txtNome.setText(novoCliente.getNome());
+			this.txtCpf.setText(novoCliente.getCpf());
+			this.cbEndereco.getModel().setSelectedItem(novoCliente.getEndereco());
+			this.setTitle("EDIÇÃO de cliente");
+		}else {
+			this.setTitle("CADASTRO de cliente");
+			this.limparCampos();
+		}
+	}
+	
 	protected void salvar() {
-		Cliente novoCliente = new Cliente();
 		novoCliente.setNome(txtNome.getText());
 		novoCliente.setCpf(txtCpf.getText());
 		novoCliente.setEndereco((Endereco)cbEndereco.getSelectedItem());
